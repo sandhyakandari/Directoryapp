@@ -9,16 +9,16 @@ const HomePage=()=>{
     const[searchitem,SetSEarch]=useState('');
     const[result,SetResult]=useState('false');
     const[load,SetLoading]=useState();
-useEffect(()=>{
-    if( data.Reducer.length>0){
-       SetResult(true);
-        SetLoading(false);
-    }
-},[data,result])
+
      function search(){
         SetLoading(true);
         dispatch(AddItem(searchitem))
          dispatch(fetchdata(searchitem)); 
+         setTimeout(()=>{ 
+            SetLoading(false)
+       
+        SetResult(true);
+        },1000)
     }
 
     console.log(data.Reducer[0]);
@@ -57,7 +57,7 @@ useEffect(()=>{
                                 }
                         {val.phonetics?(val.phonetics.map((val)=>(
                               <div>
-                             {val.audio!=''?
+                             {val.audio!==''?
                                (
                                <> <h4>{val.text}</h4>
                                 <audio controls>
