@@ -9,12 +9,12 @@ function App() {
         <nav>
             <div className='logo'>Dictonary App</div>
               <div className='render'>
-                <Link to='/'>Home</Link>
+                <Link to='/Directoryapp/'>Home</Link>
                 <Link to='/history'>History</Link>
               </div>
             </nav> 
     <Routes>
-      <Route path='/' element={<HomePage />}></Route>
+      <Route path='/Directoryapp' element={<HomePage />}></Route>
       <Route path='/History' element={<History></History>}></Route>
       <Route path='/WordDetail' element={<WordDetail></WordDetail>}></Route>
     </Routes>

@@ -1,25 +1,34 @@
 
 import { AddItem, fetchdata } from "./redux/Action";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const HomePage=()=>{
     const dispatch=useDispatch();
     const data=useSelector(state=>state)
+    console.log(data);
     const[searchitem,SetSEarch]=useState('');
-    const[result,SetResult]=useState();
+    const[result,SetResult]=useState('false');
     const[load,SetLoading]=useState();
-    function search(){
-        SetLoading('true');
-        dispatch(AddItem(searchitem))
-        dispatch(fetchdata(searchitem));
-        SetResult('true');
+useEffect(()=>{
+    if( data.Reducer.length>0){
+       SetResult(true);
+        SetLoading(false);
     }
+},[data,result])
+     function search(){
+        SetLoading(true);
+        dispatch(AddItem(searchitem))
+         dispatch(fetchdata(searchitem)); 
+    }
+
     console.log(data.Reducer[0]);
     return (
             <div className="homepage">
                <div className="searchbar"> <input type='text' value={searchitem} onChange={(e)=>SetSEarch(e.target.value)}></input>
                 <button onClick={search}>Search</button></div>
-              { load && <div class="loader"></div>}
+              { load && <div class="loader">
+                <div className="loading-spinner"> </div>
+                </div>}
               {
                 result && 
                 data.Reducer.map((val)=>(
@@ -47,11 +56,13 @@ const HomePage=()=>{
                             )) ):<></>
                                 }
                         {val.phonetics?(val.phonetics.map((val)=>(
-                                <div>
-                                <h4>{val.text}</h4>
+                              <div>
+                             {val.audio!=''?
+                               (
+                               <> <h4>{val.text}</h4>
                                 <audio controls>
   <source src={val.audio} type="audio/ogg" />
-</audio>
+</audio> </>):(<></>)}
                                 </div>
                             )) ):<></>
                                 }
