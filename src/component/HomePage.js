@@ -1,7 +1,7 @@
 
 import { AddItem, fetchdata } from "./redux/Action";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const HomePage=()=>{
     const dispatch=useDispatch();
     const data=useSelector(state=>state)
